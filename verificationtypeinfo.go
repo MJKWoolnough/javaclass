@@ -1,5 +1,12 @@
 package javaclass
 
+import (
+	"errors"
+	"io"
+
+	"github.com/MJKWoolnough/byteio"
+)
+
 const (
 	InfoTopVariable             = 0
 	InfoIntegerVariableInfo     = 1
@@ -14,6 +21,44 @@ const (
 
 type VerificationTypeInfo interface {
 	Tag() int
+}
+
+func readVerificationTypeInfo(r io.Reader) (VerificationTypeInfo, error) {
+	br := byteio.BigEndianReader{r}
+	tag, _, err := br.ReadUint8()
+	if err != nil {
+		return nil, err
+	}
+	switch tag {
+	case InfoTopVariable:
+		return TopVariableInfo{}, nil
+	case InfoIntegerVariableInfo:
+		return IntegerVariableInfo{}, nil
+	case InfoFloatVariable:
+		return FloatVariableInfo{}, nil
+	case InfoDoubleVariable:
+		return DoubleVariableInfo{}, nil
+	case InfoLongVariable:
+		return LongVariableInfo{}, nil
+	case InfoNullVariable:
+		return NullVariableInfo{}, nil
+	case InfoUnitializedThisVariable:
+		return UninitializedThisVariableInfo{}, nil
+	case InfoObjectVariable:
+		cpoolIndex, _, err := br.ReadUint16()
+		if err != nil {
+			return nil, err
+		}
+		return ObjectVariableInfo{cpoolIndex}, nil
+	case InfoUnitializedVariable:
+		offset, _, err := br.ReadUint16()
+		if err != nil {
+			return nil, err
+		}
+		return UninitializedVariableInfo{offset}, nil
+	default:
+		return nil, ErrUnknownVerificationTypeTag
+	}
 }
 
 type TopVariableInfo struct{}
@@ -73,3 +118,7 @@ type UninitializedVariableInfo struct {
 func (UninitializedVariableInfo) Tag() int {
 	return InfoUnitializedVariable
 }
+
+//Errros
+
+var ErrUnknownVerificationTypeTag = errors.New("unknown verification type tag")

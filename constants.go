@@ -54,8 +54,10 @@ func readConstantPool(r io.Reader) ([]CPInfo, error) {
 			cpInfo, err = readConstantFloat(r)
 		case ConstantLong:
 			cpInfo, err = readConstantLong(r)
+			addNull = true
 		case ConstantDouble:
 			cpInfo, err = readConstantDouble(r)
+			addNull = true
 		case ConstantClass:
 			cpInfo, err = readConstantClass(r)
 		case ConstantString:
@@ -83,6 +85,7 @@ func readConstantPool(r io.Reader) ([]CPInfo, error) {
 		constantPool = append(constantPool, cpInfo)
 		if addNull {
 			constantPool = append(constantPool, ConstantNullInfo{})
+			i++
 		}
 	}
 	return constantPool, nil

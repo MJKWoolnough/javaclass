@@ -42,7 +42,7 @@ func Read(r io.Reader) (*Class, error) {
 	}
 	cp, err := readConstantPool(r)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	accessFlags, _, err := br.ReadUint16()
 	if err != nil {

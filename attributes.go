@@ -615,7 +615,11 @@ type RuntimeVisibleAnnotationsAttribute struct {
 }
 
 func readRuntimeVisibleAnnotations(r io.Reader) (AttributeInfo, error) {
-	return nil, nil
+	annotations, err := readAnnotations(r)
+	if err != nil {
+		return nil, err
+	}
+	return RuntimeVisibleAnnotationsAttribute{annotations}, nil
 }
 
 func (RuntimeVisibleAnnotationsAttribute) Name() string {
@@ -627,7 +631,11 @@ type RuntimeInvisibleAnnotationsAttribute struct {
 }
 
 func readRuntimeInvisibleAnnotations(r io.Reader) (AttributeInfo, error) {
-	return nil, nil
+	annotations, err := readAnnotations(r)
+	if err != nil {
+		return nil, err
+	}
+	return RuntimeInvisibleAnnotationsAttribute{annotations}, nil
 }
 
 func (RuntimeInvisibleAnnotationsAttribute) Name() string {
@@ -638,12 +646,33 @@ type ParameterAnnotation struct {
 	Annotations []Annotation
 }
 
+func readParameterAnnotations(r io.Reader) ([]ParameterAnnotation, error) {
+	br := byteio.BigEndianReader{r}
+	numAnnotations, _, err := br.ReadUint16()
+	if err != nil {
+		return nil, err
+	}
+	parameterAnnotations := make([]ParameterAnnotation, numAnnotations)
+	for i := uint16(0); i < numAnnotations; i++ {
+		annotations, err := readAnnotations(r)
+		if err != nil {
+			return nil, err
+		}
+		parameterAnnotations[i] = ParameterAnnotation{annotations}
+	}
+	return parameterAnnotations, nil
+}
+
 type RuntimeVisibleParameterAnnotationsAttribute struct {
 	ParameterAnnotations []ParameterAnnotation
 }
 
 func readRuntimeVisibleParameterAnnotations(r io.Reader) (AttributeInfo, error) {
-	return nil, nil
+	parameterAnnotations, err := readParameterAnnotations(r)
+	if err != nil {
+		return nil, err
+	}
+	return RuntimeVisibleParameterAnnotationsAttribute{parameterAnnotations}, nil
 }
 
 func (RuntimeVisibleParameterAnnotationsAttribute) Name() string {
@@ -655,7 +684,11 @@ type RuntimeInvisibleParameterAnnotationsAttribute struct {
 }
 
 func readRuntimeInvisibleParameterAnnotations(r io.Reader) (AttributeInfo, error) {
-	return nil, nil
+	parameterAnnotations, err := readParameterAnnotations(r)
+	if err != nil {
+		return nil, err
+	}
+	return RuntimeInvisibleParameterAnnotationsAttribute{parameterAnnotations}, nil
 }
 
 func (RuntimeInvisibleParameterAnnotationsAttribute) Name() string {

@@ -94,5 +94,5 @@ func Read(r io.Reader) (*Class, error) {
 		return nil, err
 	}
 
-	return nil, err
+	return c, err
 }

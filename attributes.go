@@ -205,7 +205,7 @@ func (c *Class) readCode(r io.Reader) (AttributeInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &CodeAttribute{
+	return CodeAttribute{
 		MaxStack:       maxStack,
 		MaxLocals:      maxLocals,
 		Code:           code,

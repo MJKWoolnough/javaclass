@@ -12,7 +12,7 @@ type FieldInfo struct {
 }
 
 func (c *Class) readFields(r io.Reader) ([]FieldInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	fieldsCount, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

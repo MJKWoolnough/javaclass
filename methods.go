@@ -12,7 +12,7 @@ type MethodInfo struct {
 }
 
 func (c *Class) readMethods(r io.Reader) ([]MethodInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	methodsCount, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

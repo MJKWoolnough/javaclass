@@ -36,7 +36,7 @@ type AttributeInfo interface {
 }
 
 func (c *Class) readAttributes(r io.Reader) ([]AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	attributesCount, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -121,7 +121,7 @@ type ConstantValueAttribute struct {
 }
 
 func readConstantValue(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -138,7 +138,7 @@ type Exception struct {
 }
 
 func readExceptionsTable(r io.Reader) ([]Exception, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	exceptionTableLength, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -179,7 +179,7 @@ type CodeAttribute struct {
 }
 
 func (c *Class) readCode(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	maxStack, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -223,7 +223,7 @@ type StackMapTableAttribute struct {
 }
 
 func readStackMapTable(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numEntries, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -247,7 +247,7 @@ type ExceptionsAttribute struct {
 }
 
 func readExceptions(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numExceptions, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -275,7 +275,7 @@ type InnerClassesAttribute struct {
 }
 
 func readInnerClasses(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numClasses, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -317,7 +317,7 @@ type EnclosingMethodAttribute struct {
 }
 
 func readEnclosingMethod(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	classIndex, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -351,7 +351,7 @@ type SignatureAttribute struct {
 }
 
 func readSignature(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -368,7 +368,7 @@ type SourceFileAttribute struct {
 }
 
 func readSourceFile(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -405,7 +405,7 @@ type LineNumberTableAttribute struct {
 }
 
 func readLineNumberTable(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	lineNumberTableLength, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -441,7 +441,7 @@ type LocalVariableTableAttribute struct {
 }
 
 func readLocalVariableTable(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	localVariableTableLength, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -492,7 +492,7 @@ type LocalVariableTypeTableAttribute struct {
 }
 
 func readLocalVariableTypeTable(r io.Reader) (AttributeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	localVariableTypeTableLength, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -550,7 +550,7 @@ type ElementValuePair struct {
 }
 
 func readElementValuePairs(r io.Reader) ([]ElementValuePair, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numElementValuePairs, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -579,7 +579,7 @@ type Annotation struct {
 }
 
 func readAnnotation(r io.Reader) (Annotation, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	typeIndex, _, err := br.ReadUint16()
 	if err != nil {
 		return Annotation{}, err
@@ -595,7 +595,7 @@ func readAnnotation(r io.Reader) (Annotation, error) {
 }
 
 func readAnnotations(r io.Reader) ([]Annotation, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numAnnotations, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -647,7 +647,7 @@ type ParameterAnnotation struct {
 }
 
 func readParameterAnnotations(r io.Reader) ([]ParameterAnnotation, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numAnnotations, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

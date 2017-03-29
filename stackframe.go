@@ -21,7 +21,7 @@ type StackMapFrame interface {
 }
 
 func readStackMapFrame(r io.Reader) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	frameType, _, err := br.ReadUint8()
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ type SameLocals1StackItemFrameExtended struct {
 }
 
 func readSameLocals1StackItemExtendedFrame(r io.Reader, _ uint8) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	offsetDelta, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -109,7 +109,7 @@ type ChopFrame struct {
 }
 
 func readChopFrame(r io.Reader, frameType uint8) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	offsetDelta, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -126,7 +126,7 @@ type SameFrameExtended struct {
 }
 
 func readSameExtendedFrame(r io.Reader, _ uint8) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	offsetDelta, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -145,7 +145,7 @@ type AppendFrame struct {
 }
 
 func readAppendFrame(r io.Reader, frameType uint8) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	offsetDelta, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -170,7 +170,7 @@ type FullFrame struct {
 }
 
 func readFullFrame(r io.Reader, _ uint8) (StackMapFrame, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	offsetDelta, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

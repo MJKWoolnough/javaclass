@@ -24,7 +24,7 @@ type Class struct {
 }
 
 func Read(r io.Reader) (*Class, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	magic, _, err := br.ReadUint32()
 	if err != nil {
 		return nil, err

@@ -29,7 +29,7 @@ type CPInfo interface {
 }
 
 func readConstantPool(r io.Reader) ([]CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	constantPoolCount, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ type ConstantUTF8Info struct {
 }
 
 func readConstantUTF8(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	length, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -124,7 +124,7 @@ type ConstantIntegerInfo struct {
 }
 
 func readConstantInteger(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint32()
 	if err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ type ConstantFloatInfo struct {
 }
 
 func readConstantFloat(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadFloat32()
 	if err != nil {
 		return nil, err
@@ -158,7 +158,7 @@ type ConstantLongInfo struct {
 }
 
 func readConstantLong(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint64()
 	if err != nil {
 		return nil, err
@@ -175,7 +175,7 @@ type ConstantDoubleInfo struct {
 }
 
 func readConstantDouble(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadFloat64()
 	if err != nil {
 		return nil, err
@@ -192,7 +192,7 @@ type ConstantClassInfo struct {
 }
 
 func readConstantClass(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -209,7 +209,7 @@ type ConstantStringInfo struct {
 }
 
 func readConstantString(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -226,7 +226,7 @@ type ConstantFieldRefInfo struct {
 }
 
 func readConstantFieldRef(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	i, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -247,7 +247,7 @@ type ConstantMethodRefInfo struct {
 }
 
 func readConstantMethodRef(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	i, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -268,7 +268,7 @@ type ConstantInterfaceMethodRefInfo struct {
 }
 
 func readConstantInterfaceMethodRef(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	i, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -289,7 +289,7 @@ type ConstantNameAndTypeInfo struct {
 }
 
 func readConstantNameAndType(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	n, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -311,7 +311,7 @@ type ConstantMethodHandleInfo struct {
 }
 
 func readConstantMethodHandle(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	k, _, err := br.ReadUint8()
 	if err != nil {
 		return nil, err
@@ -332,7 +332,7 @@ type ConstantMethodTypeInfo struct {
 }
 
 func readConstantMethodType(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	i, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -349,7 +349,7 @@ type ConstantInvokeDynamicInfo struct {
 }
 
 func readConstantInvokeDynamic(r io.Reader) (CPInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	b, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

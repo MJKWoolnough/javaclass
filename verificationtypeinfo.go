@@ -24,7 +24,7 @@ type VerificationTypeInfo interface {
 }
 
 func readVerificationTypeInfo(r io.Reader) (VerificationTypeInfo, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	tag, _, err := br.ReadUint8()
 	if err != nil {
 		return nil, err

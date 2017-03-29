@@ -28,7 +28,7 @@ type ElementValue interface {
 }
 
 func readElementValue(r io.Reader) (ElementValue, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	tag, _, err := br.ReadUint8()
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ type ConstValueIndex struct {
 }
 
 func readEVConstValueIndex(r io.Reader) (ConstValueIndex, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	index, _, err := br.ReadUint16()
 	return ConstValueIndex{
 		Index: index,
@@ -79,7 +79,7 @@ type EnumConstValue struct {
 }
 
 func readEVEnumConstant(r io.Reader) (ElementValue, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	typeNameIndex, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ type ClassInfoIndex struct {
 }
 
 func readEVClass(r io.Reader) (ElementValue, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	index, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err
@@ -140,7 +140,7 @@ func (ArrayValue) Tag() uint8 {
 }
 
 func readEVArray(r io.Reader) (ElementValue, error) {
-	br := byteio.BigEndianReader{r}
+	br := byteio.BigEndianReader{Reader: r}
 	numValues, _, err := br.ReadUint16()
 	if err != nil {
 		return nil, err

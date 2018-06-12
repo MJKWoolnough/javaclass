@@ -4,7 +4,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/MJKWoolnough/byteio"
+	"vimagination.zapto.org/byteio"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/MJKWoolnough/byteio"
+	"vimagination.zapto.org/byteio"
 )
 
 const (

@@ -1,10 +1,10 @@
-package javaclass
+package javaclass // import "vimagination.zapto.org/javaclass"
 
 import (
 	"errors"
 	"io"
 
-	"github.com/MJKWoolnough/byteio"
+	"vimagination.zapto.org/byteio"
 )
 
 const Magic = 0xCAFEBABE

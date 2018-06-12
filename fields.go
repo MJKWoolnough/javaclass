@@ -3,7 +3,7 @@ package javaclass
 import (
 	"io"
 
-	"github.com/MJKWoolnough/byteio"
+	"vimagination.zapto.org/byteio"
 )
 
 type FieldInfo struct {
